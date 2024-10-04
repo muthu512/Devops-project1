@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_CREDENTIALS = credentials('itzsmk') // Replace with your Docker Hub credentials ID
+        DOCKER_CREDENTIALS = credentials('itzsmk@gmail.com') // Replace with your Docker Hub credentials ID
         KUBE_CONFIG = credentials('kube-config') // Your kubeconfig secret file
     }
     stages {
