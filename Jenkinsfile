@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_CREDENTIALS = credentials('itzsmk@gmail.com') // Replace with your Docker Hub credentials ID
-        KUBE_CONFIG = credentials('kube-config') // Your kubeconfig secret file
-    }
     stages {
         stage('Clone Repository') {
             steps {
@@ -13,7 +9,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Define Docker build context
                     def customImage = docker.build("your-docker-image-name:${env.BUILD_ID}")
                 }
             }
@@ -30,7 +25,6 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // Load KubeConfig
                     withKubeConfig([credentialsId: 'kube-config', context: 'kube-config']) {
                         sh 'kubectl apply -f k8s/deployment.yaml'
                         sh 'kubectl apply -f k8s/service.yaml'
@@ -48,3 +42,4 @@ pipeline {
         }
     }
 }
+
