@@ -14,10 +14,11 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                        customImage.push()
+           steps {
+               script {
+                   docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials') {
+                       def app = docker.build('your-docker-image-name:7')
+                       app.push()
                     }
                 }
             }
